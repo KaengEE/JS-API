@@ -126,12 +126,13 @@ function showPopularMovies(populars) {
 //배열 값정렬? sort()
 //최대값 Math.max
 function getClassBypopular(popularity) {
-  const popRank = Number(popularity);
-  console.log(popRank);
-  if (popRank > topNum) topNum = popRank;
+  return "🎈";
+  // const popRank = Number(popularity);
+  // console.log(popRank);
+  // if (popRank > topNum) topNum = popRank;
 
-  //반복문사용 해서 각각의 값을 계속 반복
-  forEach((popRank) => {
-    if (popRank > topNum) topNum = popRank;
-  });
+  // //반복문사용 해서 각각의 값을 계속 반복
+  // forEach((popRank) => {
+  //   if (popRank > topNum) topNum = popRank;
+  // });
 }
