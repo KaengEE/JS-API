@@ -13,7 +13,6 @@ const SEARCH_API =
 const main = document.getElementById("main"); //모든영화 컨테이너
 const form = document.getElementById("form"); // 상단 검색 폼
 const search = document.getElementById("search"); // 검색 입력창
-let topNum = 0;
 
 getMovies(API_URL);
 
@@ -92,47 +91,42 @@ async function popularMovies(url) {
   //showPopularMovies(sortedMovies);
 }
 
-//popularMovies 함수
+//showPopularMovies 함수
 function showPopularMovies(populars) {
   sub.innerHTML = "";
 
-  populars.forEach((popular) => {
-    //const { title, poster_path, vote_average, overview } = movie;
-    //영화제목, 포스터주소, 평점, 오버뷰를 영화 데이터에서 받아서 저장
-    const title = popular.title;
-    const poster_path = popular.poster_path;
-    const popularity = popular.popularity.toFixed(0); //소수점 자르기
-    const overview = popular.overview.slice(0, 100); //오버뷰 글자 줄이기
+  //인기도로 영화를 정렬
+  const sortedPopulars = populars
+    .slice()
+    .sort((a, b) => b.popularity - a.popularity);
+
+  sortedPopulars.forEach((popular, index) => {
+    const { title, poster_path, popularity, overview } = popular;
     const movieEl = document.createElement("div");
     movieEl.classList.add("movie");
 
+    //let rankIcon = ""; // 순위 아이콘을 저장할 변수
+
+    //상위 3개 영화에만 아이콘 표시
+    if (index === 0) {
+      rankIcon = "🥇"; // 1등 아이콘
+    } else if (index === 1) {
+      rankIcon = "🥈"; // 2등 아이콘
+    } else if (index === 2) {
+      rankIcon = "🥉"; // 3등 아이콘
+    }
+
     movieEl.innerHTML = `
-            <img src="${IMG_PATH + poster_path}" alt="${title}">
-            <div class="movie-info">
-          <h3>${title}</h3>
-          <span class = "best">${getClassBypopular(popularity)}</span>
-          <span>${popularity}</span>
-            </div>
-            <div class="overview">
-          <h3>상세 보기</h3>
-          ${!overview ? "상세보기가 없습니다." : overview + "..."}
-        </div>
-        `;
+      <img src="${IMG_PATH + poster_path}" alt="${title}">
+      <div class="movie-info">
+        <h3>${title}</h3>
+        <span class="best">${rankIcon} ${popularity.toFixed(0)}</span>
+      </div>
+      <div class="overview">
+        <h3>상세 보기</h3>
+        ${!overview ? "상세보기가 없습니다." : overview + "..."}
+      </div>
+    `;
     sub.appendChild(movieEl);
   });
-}
-
-//popularity 나타내는 함수(순위 1등 2등 3등)
-//배열 값정렬? sort()
-//최대값 Math.max
-function getClassBypopular(popularity) {
-  return "🎈";
-  // const popRank = Number(popularity);
-  // console.log(popRank);
-  // if (popRank > topNum) topNum = popRank;
-
-  // //반복문사용 해서 각각의 값을 계속 반복
-  // forEach((popRank) => {
-  //   if (popRank > topNum) topNum = popRank;
-  // });
 }
