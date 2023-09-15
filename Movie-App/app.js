@@ -114,6 +114,8 @@ function showPopularMovies(populars) {
       rankIcon = "🥈"; // 2등 아이콘
     } else if (index === 2) {
       rankIcon = "🥉"; // 3등 아이콘
+    } else {
+      rankIcon = "";
     }
 
     movieEl.innerHTML = `
