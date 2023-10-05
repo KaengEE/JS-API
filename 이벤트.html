@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>jQuery - 이벤트</title>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      body {
+        font-size: 17px;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f4f4f4;
+        line-height: 1.5em;
+      }
+      header {
+        background: #333;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-bottom: 4px solid black;
+        margin-bottom: 10px;
+      }
+      #container {
+        width: 90%;
+        margin: auto;
+        padding: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>jQuery 이벤트</h1>
+    </header>
+    <div id="container">
+      <h3>마우스 이벤트</h3>
+      <button id="btn1">Button 1</button>
+      <button id="btn2">Button 2</button>
+      <p class="para1">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur
+        saepe qui ullam rem, laboriosam provident deserunt voluptas temporibus
+        minima veritatis corporis commodi omnis natus, unde dolorem sunt facere.
+        Repellendus, nostrum?
+      </p>
+      <!-- 좌표를 표시할 태그 -->
+      <!-- <h1 id="coords"></h1> -->
+
+      <hr />
+      <form id="form" action="">
+        <label>Name</label><br />
+        <input required type="text" id="name" name="name" />
+        <br />
+        <label>Email</label><br />
+        <input required type="email" id="emial" name="email" />
+        <br />
+        <label>Gender</label><br />
+        <select name="gender" id="gender">
+          <option value="남성">Male</option>
+          <option value="여성">Female</option>
+        </select>
+        <br />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+
+    <script>
+      //  html이 준비된 상태에서 코드 실행
+      // $(document).ready(function () {
+      //   $("#btn1").click(function () {
+      //     $(".para1").hide();
+      //   });
+      //   $("#btn2").click(function () {
+      //     $(".para1").show();
+      //   });
+      // });
+      // $("#btn1").click(function () {
+      //   $(".para1").toggle();
+      // });
+      $("#btn1").on("click", function () {
+        $(".para1").toggle();
+      });
+
+      $("#btn2").on("mousemove", function (e) {
+        console.log("좌표: x = " + e.clientX + " y = " + e.clientY);
+      });
+
+      $(document).on("mousemove", function (e) {
+        //console.log(e);
+        $("#coords").text("좌표: x = " + e.clientX + " y = " + e.clientY);
+      });
+
+      $("input").focus(function () {
+        $(this).css("background-color", "pink");
+      });
+
+      $("input").blur(function () {
+        $(this).css("background-color", "white");
+      });
+
+      $("input").keyup(function (e) {
+        console.log(e.target.value);
+      });
+
+      $("select#gender").change(function (e) {
+        alert(e.target.value);
+      });
+
+      $("#form").submit(function (e) {
+        e.preventDefault(); //기본submit이벤트 제거
+        //e.target.submit();
+        let name = $("input#name").val(); //원하는 함수넣을 수 있음
+        console.log(name);
+      });
+    </script>
+  </body>
+</html>
