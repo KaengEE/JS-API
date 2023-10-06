@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="#" type="image/x-icon" />
+    <title>TO DO LIST</title>
+    <!-- 메인 CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- 폰트오썸 CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css"
+    />
+    <!-- 제이쿼리 CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <input type="text" class="txtb" placeholder="할일을 적어요" />
+      <div class="todo">
+        <h3>해야 할일</h3>
+      </div>
+
+      <div class="comp">
+        <h3>완료된 일</h3>
+      </div>
+    </div>
+
+    <script>
+      // 추가할 div 태그들 정의 const는 상수 변하지 않음
+      const task = "<div class='task'></div>";
+      const del = "<i class='fas fa-trash-alt'></i>";
+      const check = "<i class='fas fa-check'></i>";
+
+      //키 입력시
+      $(".txtb").on("keyup", function (e) {
+        let txt = $(".txtb").val(); //입력의 값을 가져옴
+        if (e.keyCode === 13 && txt.length > 0) {
+          $(".todo").append(task); //todo 자식 맨밑에 추가
+          $(".todo .task:last").text(txt); //task 가장 아래 추가
+          $(".todo .task:last").append(del, check); //아이콘추가
+          $(".txtb").val(""); //input 클리어
+        }
+      });
+
+      //  클릭 이벤트 : 해야할일이나 완료된일을 클릭시
+      $(".todo, .comp").click(function (e) {
+        //console.log(e.target);
+        const target = $(e.target);
+        if (target.is("i.fa-check")) {
+          const compItem = target.parent(); //클릭한 아이콘의 부모태그
+          compItem.fadeOut(function () {
+            //페이드아웃
+            $(".comp").append(compItem); //완료리스트로 이동
+            compItem.fadeIn(); //페이드인.
+            $(".comp i.fa-check").remove(); //체크아이콘삭제
+          });
+        } else if (target.is("i.fa-trash-alt")) {
+          const delItem = target.parent();
+          delItem.fadeOut(function () {
+            delItem.remove(); //fadeOut은 화면에서 삭제 실제 삭제는 remove
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
