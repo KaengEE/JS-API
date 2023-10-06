@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>제이쿼리JSON</title>
+    <!-- 제이쿼리CDN -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div id="result"></div>
+      <ul id="users"></ul>
+    </div>
+
+    <script>
+      $.getJSON("user.json", function (data) {
+        $.each(data, function (i, user) {
+          //반복문
+          console.log(i, user);
+          $("ul#users").append(`<li>${user.first_name}</li>`);
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>제이쿼리AJAX</title>
+    <!-- 제이쿼리CDN -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div id="result"></div>
+    </div>
+
+    <script>
+      $.ajax({
+        url: "https://jsonplaceholder.typicode.com/posts",
+        method: "get",
+        dataType: "json",
+      }).done(function (data) {
+        //성공시
+        console.log(data);
+        $.each(data, function (i, item) {
+          $("#result").append(
+            `<h3>${item.id}. ${item.title}</h3><p>${item.body}</p><hr>`
+          );
+        });
+      });
+    </script>
+  </body>
+</html>

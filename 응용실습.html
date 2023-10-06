@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>jQuery - 응용실습</title>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      body {
+        font-size: 17px;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f4f4f4;
+        line-height: 1.5em;
+      }
+      header {
+        background: #333;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-bottom: 4px solid black;
+        margin-bottom: 10px;
+      }
+      #container {
+        width: 90%;
+        margin: auto;
+        padding: 10px;
+      }
+
+      .myclass {
+        color: skyblue;
+        background: gray;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>jQuery 응용실습</h1>
+    </header>
+    <div id="container">
+      <button id="btn1">버튼 1</button>
+      <p class="para1">첫번째 문장입니다.</p>
+      <p class="para2">두번째 문장입니다.</p>
+      <div id="myDiv"></div>
+
+      <input type="text" id="newItem" />
+      <ul>
+        <li>List Item 1</li>
+        <li>List Item 2</li>
+        <li>List Item 3</li>
+        <li>List Item 4</li>
+      </ul>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        //css를 여러개 입력시 객체형식으로 가능
+        $("p.para1").css({ color: "red", background: "yellowgreen" });
+
+        $("p.para2").addClass("myclass");
+        $("p.para2").removeClass("myclass");
+
+        $("#btn1").on("click", function () {
+          $("p.para2").toggleClass("myclass");
+        });
+
+        //$("#myDiv").text("글자만 넣기");
+        $("#myDiv").html("<div>첫번째</div> <div>두번째</div>");
+
+        $("ul").append("<li>아이템 추가</li>");
+        $("ul").prepend("<li>아이템 추가</li>");
+        //순서를 정함
+        $(".para1").appendTo(".para2");
+        $(".para1").prependTo(".para2");
+        //태그제거
+        //$("ul").empty();
+        // $("ul").detach(); //태그까지제거
+
+        $("#newItem").on("keyup", function (e) {
+          let code = e.which;
+          if (code === 13 && e.target.value.length > 0) {
+            //e.preventDefault(); //폼태그안에있으면
+            $("ul").append("<li>" + e.target.value + "</li>");
+            e.target.value = "";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
